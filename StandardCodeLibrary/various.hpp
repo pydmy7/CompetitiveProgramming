@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <cstdint>
+#include <concepts>
 
 namespace scl {
 
@@ -32,6 +33,11 @@ std::int64_t sqrt(std::int64_t n) {
         ++s;
     }
     return s;
+}
+
+template <std::floating_point T>
+bool isEqual(T a, T b, T eps = std::numeric_limits<T>::epsilon() * 100) {
+    return std::abs(a - b) <= eps * std::max({T{1}, std::abs(a), std::abs(b)});
 }
 
 }  // namespace scl
