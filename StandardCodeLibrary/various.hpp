@@ -37,6 +37,12 @@ std::int64_t sqrt(std::int64_t n) {
 
 template <std::floating_point T>
 bool isEqual(T a, T b, T eps = std::numeric_limits<T>::epsilon() * 100) {
+    if (a == b) {
+        return true;
+    }
+    if (std::isnan(a) || std::isnan(b) || std::isinf(a) || std::isinf(b)) {
+        return false;
+    }
     return std::abs(a - b) <= eps * std::max({T{1}, std::abs(a), std::abs(b)});
 }
 
