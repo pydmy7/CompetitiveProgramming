@@ -49,7 +49,7 @@ bool isEqual(T a, T b, T eps = std::numeric_limits<T>::epsilon() * 100) {
 }
 
 std::array<std::vector<int>, 3> eulerSieve(int n) {
-    std::vector<int> minPrimeFactor(n  + 1, 0);
+    std::vector<int> minPrimeFactor(n + 1, 0);
     std::vector<int> primes;
     std::vector<int> phi(n + 1);
     phi[1] = 1;
@@ -76,6 +76,5 @@ std::array<std::vector<int>, 3> eulerSieve(int n) {
 
     return { minPrimeFactor, primes, phi };
 }
-
 
 }  // namespace scl
