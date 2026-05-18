@@ -26,17 +26,6 @@ i64 floorDiv(i64 n, i64 m) {
     }
 }
 
-std::int64_t sqrt(std::int64_t n) {
-    std::int64_t s = std::sqrt(n);
-    while (s * s > n) {
-        --s;
-    }
-    while ((s + 1) * (s + 1) <= n) {
-        ++s;
-    }
-    return s;
-}
-
 template <std::floating_point T>
 bool isEqual(T a, T b, T eps = std::numeric_limits<T>::epsilon() * 100) {
     if (a == b) {
