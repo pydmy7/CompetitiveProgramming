@@ -1,9 +1,10 @@
 param(
     [Parameter(Mandatory = $true, Position = 0)]
-    [string]$CppFile
+    [string]$CppFile,
+    [switch]$Paste
 )
 
-$ErrorActionPreference = 'Stop'
+$ErrorActionPreference = "Stop"
 
 if (-not (Test-Path -LiteralPath $CppFile -PathType Leaf)) {
     Write-Error "File not found: $CppFile"
@@ -15,19 +16,24 @@ $dir = $cpp.DirectoryName
 $base = [System.IO.Path]::GetFileNameWithoutExtension($cpp.Name)
 $exeName = "$base.exe"
 $exePath = Join-Path $dir $exeName
-$inputTxt = Join-Path $dir "$base.txt"
+$inputFile = Join-Path $dir "$base.in"
 
 Push-Location $dir
 try {
+    if ($Paste) {
+        Write-Host "gcb > $base.in"
+        Get-Clipboard | Set-Content -LiteralPath $inputFile
+    }
+
     Write-Host "g++ $($cpp.Name) -o $exeName -std=c++20"
     & g++ $cpp.Name -o $exeName -std=c++20
     if ($LASTEXITCODE -ne 0) {
         exit $LASTEXITCODE
     }
 
-    if (Test-Path -LiteralPath $inputTxt -PathType Leaf) {
-        Write-Host "cat $base.txt | $exeName"
-        Get-Content -LiteralPath $inputTxt | & $exePath
+    if (Test-Path -LiteralPath $inputFile -PathType Leaf) {
+        Write-Host "cat $base.in | $exeName"
+        Get-Content -LiteralPath $inputFile | & $exePath
     }
     else {
         Write-Host "./$exeName"
