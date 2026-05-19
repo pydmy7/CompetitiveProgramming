@@ -32,7 +32,7 @@ try {
     }
 
     if (Test-Path -LiteralPath $inputFile -PathType Leaf) {
-        Write-Host "cat $base.in | $exeName"
+        Write-Host "cat $base.in | ./$exeName"
         Get-Content -LiteralPath $inputFile | & $exePath
     }
     else {
