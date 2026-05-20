@@ -39,7 +39,12 @@ try {
         Write-Host "./$exeName"
         & $exePath
     }
-    exit $LASTEXITCODE
+    $runExit = $LASTEXITCODE
+
+    Write-Host "$($cpp.Name) > clipboard"
+    Get-Content -LiteralPath $cpp.FullName -Raw | Set-Clipboard
+
+    exit $runExit
 }
 finally {
     Pop-Location
