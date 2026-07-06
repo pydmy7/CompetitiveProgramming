@@ -27,14 +27,14 @@ i64 floorDiv(i64 n, i64 m) {
 }
 
 template <std::floating_point T>
-bool isEqual(T a, T b, T eps = std::numeric_limits<T>::epsilon() * 100) {
-    if (a == b) {
+bool isNearlyEqual(T value, T expected, T eps = std::numeric_limits<T>::epsilon() * 100) {
+    if (value == expected) {
         return true;
     }
-    if (std::isnan(a) || std::isnan(b) || std::isinf(a) || std::isinf(b)) {
+    if (std::isnan(value) || std::isnan(expected) || std::isinf(value) || std::isinf(expected)) {
         return false;
     }
-    return std::abs(a - b) <= eps * std::max({T{1}, std::abs(a), std::abs(b)});
+    return std::abs(value - expected) <= eps * std::max({T{1}, std::abs(expected)});
 }
 
 std::array<std::vector<int>, 3> eulerSieve(int n) {
