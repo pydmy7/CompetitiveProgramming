@@ -60,8 +60,10 @@ try {
     }
     $runExit = $LASTEXITCODE
 
-    Write-Host "$($src.Name) > clipboard"
-    Get-Content -LiteralPath $src.FullName -Raw | Set-Clipboard
+    if ($runExit -eq 0) {
+        Write-Host "$($src.Name) > clipboard"
+        Get-Content -LiteralPath $src.FullName -Raw | Set-Clipboard
+    }
 
     exit $runExit
 }
